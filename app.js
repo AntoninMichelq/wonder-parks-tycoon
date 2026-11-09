@@ -43,3 +43,60 @@ fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
       `Version ${rel.tag_name}${date ? ", publiée le " + date : ""} · gratuit · en français et en anglais`;
   })
   .catch(() => {});
+
+// Ancienne version web du jeu : son service worker et ses copies en cache sont retirés du navigateur
+if ("serviceWorker" in navigator)
+  navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+if (window.caches)
+  caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {});
+
+// ------------------------------------------------------------------ petits effets
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// (l'entrée en scène ne rejoue pas au retour sur la page)
+setTimeout(() => document.body.classList.remove("intro"), 2000);
+
+// confettis aux couleurs du jeu quand on prend un ticket
+const colors = ["#d93a4a", "#ffc93c", "#3d8bd9", "#5fae5c", "#fff3dc", "#b07cff"];
+document.querySelectorAll(".ticket").forEach(t => t.addEventListener("click", e => {
+  if (calm) return;
+  const r = t.getBoundingClientRect();
+  const x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
+  for (let i = 0; i < 18; i++) {
+    const c = document.createElement("span");
+    c.className = "confetti";
+    const a = Math.PI * (1.1 + Math.random() * 0.8), d = 60 + Math.random() * 90;
+    c.style.cssText = `left:${x}px;top:${y}px;background:${colors[i % colors.length]};` +
+      `--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d + 40}px;--r:${(Math.random() * 2 - 1) * 400}deg`;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1000);
+  }
+}));
+
+// Gus change de réplique quand on le touche
+const lines = [
+  "Encore un nouveau directeur ? Pfff… Télécharge, et ne me fais pas regretter de t'avoir embauché.",
+  "Quoi encore ? Les tickets sont juste là. Je ne vais pas cliquer à ta place.",
+  "Arrête de me toucher les cheveux. Ça m'a pris une heure ce matin.",
+  "Douze espèces, un aquarium, et c'est moi qui nettoie. Évidemment.",
+  "Les managers travaillent même la nuit. Moi aussi, d'ailleurs. Personne ne me remercie.",
+];
+let li = 0;
+const gus = document.querySelector(".gus"), bubble = gus.querySelector(".bubble");
+gus.querySelector(".gus-btn").addEventListener("click", () => {
+  li = (li + 1) % lines.length;
+  bubble.textContent = lines[li];
+  gus.classList.remove("talk");
+  void gus.offsetWidth;
+  gus.classList.add("talk");
+});
+
+// le téléphone du haut suit doucement la souris (ordinateur seulement)
+const phone = document.querySelector(".hero-phone");
+if (!calm && matchMedia("(hover: hover)").matches) {
+  addEventListener("pointermove", e => {
+    const r = phone.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth, dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+    phone.style.setProperty("--tx", (dx * 14).toFixed(2) + "deg");
+    phone.style.setProperty("--ty", (-dy * 10).toFixed(2) + "deg");
+  });
+}
