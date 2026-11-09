@@ -1,309 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>ZooVoxel</title>
-		<style>
-html, body, #canvas {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wonder Parks Tycoon</title>
+<meta name="description" content="Construis ton zoo, ouvre un aquarium sous terre et collectionne 120 animaux rares. Gratuit sur Android et Windows.">
+<meta property="og:title" content="Wonder Parks Tycoon">
+<meta property="og:description" content="Construis ton zoo, ouvre un aquarium sous terre et collectionne 120 animaux rares.">
+<meta property="og:image" content="img/parc.webp">
+<meta name="theme-color" content="#2b1d3a">
+<link rel="icon" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body {
-	color: white;
-	background-color: black;
-	overflow: hidden;
-	touch-action: none;
-}
+<header class="night">
+  <nav class="top">
+    <a class="brand" href="#"><img src="img/icon-192.png" alt="" width="40" height="40"><span>Wonder Parks Tycoon</span></a>
+    <a class="top-link" href="#installer">Installer</a>
+  </nav>
 
-#canvas {
-	display: block;
-}
+  <div class="hero">
+    <div class="hero-text">
+      <div class="marquee" aria-hidden="true">
+        <span class="bulbs"></span>
+        <img class="logo" src="img/logo_ticket.svg" alt="" width="200" height="140">
+      </div>
+      <h1><span>Wonder Parks</span><span class="ribbon">Tycoon</span></h1>
+      <p class="lead">Ouvre ton zoo avec trois lapins, fais-le grandir jusqu'aux ours polaires, puis creuse un aquarium juste en dessous. Tes managers continuent de gagner pendant que tu dors.</p>
 
-#canvas:focus {
-	outline: none;
-}
+      <div class="tickets" id="tickets">
+        <a class="ticket" id="dl-android" data-os="android" href="#">
+          <span class="ticket-main">
+            <svg class="os" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 9.2 19 6.6a.5.5 0 1 0-.9-.5l-1.5 2.6a9 9 0 0 0-9.2 0L5.9 6.1a.5.5 0 1 0-.9.5l1.5 2.6A8 8 0 0 0 3 15.5h18a8 8 0 0 0-3.5-6.3ZM8 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm8 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+            <span><b>Android</b><small>Fichier .apk</small></span>
+          </span>
+          <span class="ticket-stub"><span class="stub-size" data-size="android">Télécharger</span></span>
+        </a>
+        <a class="ticket" id="dl-windows" data-os="windows" href="#">
+          <span class="ticket-main">
+            <svg class="os" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3v-6Zm8.4-1.1L21 3v8.5h-9.6V4.4ZM3 12.5h7.4v7L3 18.5v-6Zm8.4 0H21V21l-9.6-1.4v-7.1Z"/></svg>
+            <span><b>Windows</b><small>Archive .zip</small></span>
+          </span>
+          <span class="ticket-stub"><span class="stub-size" data-size="windows">Télécharger</span></span>
+        </a>
+      </div>
+      <p class="meta" id="release-meta">Gratuit · en français et en anglais</p>
+    </div>
 
-#status, #status-splash, #status-progress {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
+    <figure class="phone hero-phone">
+      <img src="img/parc.webp" alt="Un grand zoo vu d'en haut : enclos de girafes, lions, zèbres et pandas, allée centrale et fontaine." width="540" height="1170">
+    </figure>
+  </div>
 
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
+  <div class="gus">
+    <img src="img/gus_smug.png" alt="Gus, le vieux grognon aux cheveux en pics" width="396" height="450">
+    <p class="bubble">Encore un nouveau directeur ? Pfff… Télécharge, et ne me fais pas regretter de t'avoir embauché.</p>
+  </div>
+</header>
 
-#status {
-	background-color: #94cc84;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
+<div class="awning" aria-hidden="true"></div>
 
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
+<main>
+  <section class="rides">
+    <h2>Ce qui t'attend dans le parc</h2>
+    <p class="section-lead">Quatre captures prises directement dans le jeu.</p>
+    <ul class="ride-track">
+      <li>
+        <figure class="phone"><img src="img/parc.webp" alt="Vue d'ensemble d'un zoo bien rempli" width="540" height="1170" loading="lazy"></figure>
+        <h3>Douze espèces à accueillir</h3>
+        <p>Des lapins aux ours polaires. Chaque enclos s'améliore à l'infini, et des paliers doublent ses gains.</p>
+      </li>
+      <li>
+        <figure class="phone"><img src="img/enclos.webp" alt="Gros plan sur l'enclos des flamants et celui des manchots" width="540" height="1170" loading="lazy"></figure>
+        <h3>Un parc qui te ressemble</h3>
+        <p>Déplace les enclos, trace les allées, choisis le portail. Les visiteurs suivent tes chemins.</p>
+      </li>
+      <li>
+        <figure class="phone"><img src="img/caisse.webp" alt="Une carte Épique sort d'un coffre : Hippocampe galaxie" width="540" height="1170" loading="lazy"></figure>
+        <h3>120 animaux rares</h3>
+        <p>Ouvre des caisses pour trouver des apparences Rares, Épiques, Légendaires et Mythiques. Les chances sont affichées.</p>
+      </li>
+      <li>
+        <figure class="phone"><img src="img/pass.webp" alt="Le Pass de saison avec ses missions du jour" width="540" height="1170" loading="lazy"></figure>
+        <h3>Un Pass qui se gagne en jouant</h3>
+        <p>Missions du jour, objectifs, succès : chaque saison de 28 jours se termine sur la Mascotte dorée.</p>
+      </li>
+    </ul>
+  </section>
 
-#status-splash.show-image--false {
-	display: none;
-}
+  <section class="install" id="installer">
+    <h2>Installer le jeu</h2>
+    <div class="install-cols">
+      <article class="install-card" id="install-android">
+        <h3>Sur Android</h3>
+        <ol>
+          <li>Touche <a href="#" data-dl="android">Télécharger pour Android</a> depuis ton téléphone.</li>
+          <li>Ouvre le fichier <em>WonderParksTycoon.apk</em> dans tes téléchargements.</li>
+          <li>Si Android le demande, autorise ton navigateur à installer des applications, puis touche « Installer ».</li>
+        </ol>
+        <p class="note">Le jeu n'est pas encore sur le Play Store, c'est pour ça qu'Android pose la question.</p>
+      </article>
+      <article class="install-card" id="install-windows">
+        <h3>Sur Windows</h3>
+        <ol>
+          <li>Clique sur <a href="#" data-dl="windows">Télécharger pour Windows</a>.</li>
+          <li>Fais un clic droit sur le fichier .zip, puis « Extraire tout ».</li>
+          <li>Lance <em>WonderParksTycoon.exe</em>. Si Windows affiche « Windows a protégé votre ordinateur », clique sur « Informations complémentaires » puis « Exécuter quand même ».</li>
+        </ol>
+        <p class="note">Windows affiche cet avertissement pour tous les jeux indépendants qui ne sont pas signés.</p>
+      </article>
+    </div>
+  </section>
 
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
+  <section class="faq">
+    <h2>Questions fréquentes</h2>
+    <details>
+      <summary>Le jeu est-il gratuit ?</summary>
+      <p>Oui. Tout ce qui fait avancer le parc s'obtient en jouant : gemmes, caisses et Mascotte dorée se gagnent avec les objectifs, les succès, le cadeau du jour et le Pass gratuit.</p>
+    </details>
+    <details>
+      <summary>Faut-il une connexion internet ?</summary>
+      <p>Non. Ta partie est enregistrée sur ton appareil. La connexion ne sert qu'au classement mondial, avec Google Play Jeux sur Android.</p>
+    </details>
+    <details>
+      <summary>Mon parc avance-t-il quand le jeu est fermé ?</summary>
+      <p>Oui, tant que tes enclos ont un manager. À ton retour, Gus te donne ce qu'ils ont gagné.</p>
+    </details>
+    <details>
+      <summary>Comment mettre à jour le jeu ?</summary>
+      <p>Télécharge la nouvelle version ici et installe-la par-dessus l'ancienne. Ta partie est gardée.</p>
+    </details>
+  </section>
+</main>
 
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
+<footer class="grass">
+  <div class="fence" aria-hidden="true"></div>
+  <p>Wonder Parks Tycoon · <a href="#" id="all-releases">Toutes les versions</a></p>
+</footer>
 
-#status-progress, #status-notice {
-	display: none;
-}
-
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
-
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
-	text-align: center;
-	z-index: 1;
-}
-		</style>
-		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
-<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
-<link rel="manifest" href="index.manifest.json">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Zoo Tycoon">
-<meta name="theme-color" content="#94cc84">
-<style>html, body { background: #94cc84; overscroll-behavior: none; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }</style>
-<script>
-/* Écrans à encoche / barre d'accueil (iPhone) : la page occupe tout l'écran
-   et le jeu lit les marges de sécurité pour ne rien placer dessous. */
-(function () {
-  try {
-    var m = document.querySelector('meta[name=viewport]');
-    if (m && m.content.indexOf('viewport-fit') < 0) { m.content += ', viewport-fit=cover'; }
-  } catch (e) {}
-  window.zooSafeArea = function () {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;left:0;top:0;visibility:hidden;pointer-events:none;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);';
-    document.body.appendChild(d);
-    var cs = getComputedStyle(d);
-    var top = parseFloat(cs.paddingTop) || 0;
-    var bottom = parseFloat(cs.paddingBottom) || 0;
-    document.body.removeChild(d);
-    var standalone = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
-    var touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-    /* Coins arrondis de l'écran : un peu d'espace même si le navigateur ne donne rien */
-    if (touch && standalone && bottom < 14) { bottom = 14; }
-    return { top: top, bottom: bottom, h: window.innerHeight };
-  };
-})();
-</script>
-<script>
-/* Son sur iPhone / iPad (Safari) :
-   1. jouer même quand le bouton silencieux est activé :
-      API Audio Session (iOS 16.4+) + piste HTML muette en boucle (anciens iOS)
-   2. débloquer / relancer le contexte audio à chaque geste,
-      y compris après une mise en arrière-plan, un appel ou un état 'interrupted'. */
-(function () {
-  try { if (navigator.audioSession) { navigator.audioSession.type = 'playback'; } } catch (e) {}
-  var Base = window.AudioContext || window.webkitAudioContext;
-  if (!Base) { return; }
-  var contexts = [];
-  var Wrapped = function (opts) {
-    var c = opts ? new Base(opts) : new Base();
-    contexts.push(c);
-    try { c.addEventListener('statechange', function () { if (c.state === 'interrupted' && !document.hidden) { c.resume(); } }); } catch (e) {}
-    return c;
-  };
-  Wrapped.prototype = Base.prototype;
-  window.AudioContext = Wrapped;
-  if (window.webkitAudioContext) { window.webkitAudioContext = Wrapped; }
-  var tag = null;
-  var silent = function () {
-    try {
-      if (!tag) {
-        tag = document.createElement('audio');
-        tag.setAttribute('x-webkit-airplay', 'deny');
-        tag.setAttribute('playsinline', '');
-        tag.preload = 'auto';
-        tag.loop = true;
-        tag.volume = 0.01;
-        tag.src = 'data:audio/wav;base64,UklGRvQHAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YdAHAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';
-      }
-      if (tag.paused && !document.hidden) { var p = tag.play(); if (p && p.catch) { p.catch(function () {}); } }
-    } catch (e) {}
-  };
-  var unlock = function () {
-    silent();
-    for (var i = 0; i < contexts.length; i++) {
-      var c = contexts[i];
-      try {
-        if (c.state !== 'running') { c.resume(); }
-        var b = c.createBuffer(1, 1, 22050);
-        var s = c.createBufferSource();
-        s.buffer = b;
-        s.connect(c.destination);
-        s.start(0);
-      } catch (e) {}
-    }
-  };
-  ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'mousedown', 'click', 'keydown'].forEach(function (ev) {
-    window.addEventListener(ev, unlock, { capture: true, passive: true });
-  });
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { try { if (tag) { tag.pause(); } } catch (e) {} }
-    else { setTimeout(unlock, 50); }
-  });
-  window.addEventListener('pageshow', function () { setTimeout(unlock, 50); });
-})();
-</script>
-	</head>
-	<body>
-		<canvas id="canvas">
-			Your browser does not support the canvas tag.
-		</canvas>
-
-		<noscript>
-			Your browser does not support JavaScript.
-		</noscript>
-
-		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--false use-filter--true" src="index.png" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
-		</div>
-
-		<script src="index.js"></script>
-		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":7816856,"index.wasm":39513091},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
-const GODOT_THREADS_ENABLED = false;
-const engine = new Engine(GODOT_CONFIG);
-
-(function () {
-	const statusOverlay = document.getElementById('status');
-	const statusProgress = document.getElementById('status-progress');
-	const statusNotice = document.getElementById('status-notice');
-
-	let initializing = true;
-	let statusMode = '';
-
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
-			return;
-		}
-		if (mode === 'hidden') {
-			statusOverlay.remove();
-			initializing = false;
-			return;
-		}
-		statusOverlay.style.visibility = 'visible';
-		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-		statusMode = mode;
-	}
-
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
-
-	function displayFailureNotice(err) {
-		console.error(err);
-		if (err instanceof Error) {
-			setStatusNotice(err.message);
-		} else if (typeof err === 'string') {
-			setStatusNotice(err);
-		} else {
-			setStatusNotice('An unknown error occurred.');
-		}
-		setStatusMode('notice');
-		initializing = false;
-	}
-
-	const missing = Engine.getMissingFeatures({
-		threads: GODOT_THREADS_ENABLED,
-	});
-
-	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			let serviceWorkerRegistrationPromise;
-			try {
-				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
-			} catch (err) {
-				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
-			}
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				serviceWorkerRegistrationPromise.then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).then(() => {
-				// Reload if there was no error.
-				window.location.reload();
-			}).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			});
-		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
-		}
-	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
-	}
-}());
-		</script>
-	</body>
+<script src="app.js"></script>
+</body>
 </html>
-
