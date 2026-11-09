@@ -1,6 +1,6 @@
 // Liens de téléchargement : ils pointent vers la dernière version publiée sur GitHub (onglet Releases).
 // À changer si le dépôt ou le nom des fichiers change.
-const REPO = "AntoninMichelq/management_zoo_game";
+const REPO = "AntoninMichelq/wonder-parks-tycoon";
 const FILES = {
   android: "WonderParksTycoon.apk",
   windows: "WonderParksTycoon-Windows.zip",
