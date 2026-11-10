@@ -3,7 +3,7 @@
 const REPO = "AntoninMichelq/wonder-parks-tycoon";
 const FILES = {
   android: "WonderParksTycoon.apk",
-  windows: "WonderParksTycoon-Windows.zip",
+  windows: "WonderParksTycoon-Setup.exe",
 };
 
 const latest = name => `https://github.com/${REPO}/releases/latest/download/${name}`;
